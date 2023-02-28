@@ -41,8 +41,10 @@ with open('/content/wellcome stores.csv','r') as infile:
       add.append(line)
   
 print("address and coor of wellcome:")
-print(add)
-print(coor)
+for x in range(len(coor)):
+  print(x, add[x], coor[x])
+
+
 
 #2.3 Calculate the distance between Tsim Sha Tsui Station and each Wellcome store. Print those within 1km
 distances = []
@@ -54,5 +56,3 @@ for co in coor:
   if dis <= 1:
     print(add[i],": ",coor[i]," dis = ", dis)
   i+=1
-
-
