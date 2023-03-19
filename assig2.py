@@ -31,14 +31,25 @@ def nearBySearch(lat, lng, radius, placeType = '', keyword = ''):
 radius_test = '2000' #500 meters
 typecode_test = 'hosptial' # lets get some restaurants
 hosptials = nearBySearch(lat_, lng_, radius_test, typecode_test)
-map_plot4 = folium.Map(
-    location = [lat_, lng_],
-    zoom_start=16
-    )
 
 folium.TileLayer(tiles = google_road_map, attr = 'Google Maps').add_to(map_plot4)
 
-for k in hosptials:
-  folium.Marker(hosptials[k], tooltip=k).add_to(map_plot4)
+# popular basemap url
+google_road_map = 'http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
+google_satallite_map = 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'
+gaode = 'http://wprd03.is.autonavi.com/appmaptile?style=7&x={x}&y={y}&z={z}' 
+tencent = 'http://rt1.map.gtimg.com/tile?z={z}&x={x}&y={-y}&styleid=1&version=117'
 
-map_plot4
+ManyMaps = folium.Map(location=[lat_,lng_], zoom_start=16)
+
+# add them as the optional basemap 
+folium.TileLayer(tiles=google_satallite_map, attr='Google Satellite', name= 'Google Satellite').add_to(ManyMaps)
+folium.TileLayer(tiles=gaode, attr='高德地图',name = '高德地图').add_to(ManyMaps)
+folium.LayerControl().add_to(ManyMaps)
+
+
+
+for k in hosptials:
+  folium.Marker(hosptials[k], tooltip=k).add_to(ManyMaps)
+
+ManyMaps
